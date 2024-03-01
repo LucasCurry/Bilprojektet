@@ -4,9 +4,9 @@ void setup() {
   TCCR2B = 0b00000001;
   /*Sätter D11 till motorpin*/
   DDRB = 0b00001000;
-  /*Hastighet för motor med lägre gräns = 50 
-  vid "kallstart" fungerar ej låga hastigheter 
-  (<~90), då kan max-värde (255) sättas under 
+  /*Hastighet för motor med lägre gräns = 50. 
+  Vid "kallstart" fungerar ej låga hastigheter 
+  (<~90), då kan max-värde (255) köras i 
   20 ms innan den låga hastigheten sätts*/
   OCR2A = 255;
   delay(20);
