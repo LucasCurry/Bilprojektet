@@ -9,8 +9,8 @@
 // documentation of attachInterrupt to make sure you
 // pick a valid pin.
 //
-// "Advanced"-koden ger 1 sampling/40 ms
-// Den här koden som ger 1 sampling/8,4 ms
+// "Advanced"-koden ger 1 sampling / 40 ms
+// Den här koden ger 1 sampling / 8,4 ms
 
 #include <OPT3101.h>
 #include <Wire.h>
