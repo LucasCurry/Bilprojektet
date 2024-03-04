@@ -2,7 +2,7 @@ void setup() {
   /*PWM-inställning*/
   TCCR2A = 0b10000011;
   TCCR2B = 0b00000001;
-  /*Sätter D11 till motorpin*/
+  /*Sätter D11 (Atmegas PB3) till motorpin*/
   DDRB = 0b00001000;
   /*Hastighet för motor med lägre gräns = 70. 
   Vid "kallstart" fungerar ej låga hastigheter 
