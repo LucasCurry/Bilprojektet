@@ -31,9 +31,6 @@ void fwd(uint8_t speed) {
         OCR0B = 0;
         _delay_ms(20);
     }
-    if(speed < 70) {
-    speed = 70;
-    }
     OCR0A = speed;
     OCR0B = 0;
 }
@@ -45,9 +42,6 @@ void back(uint8_t speed) {
         OCR0B = 120;
         OCR0A = 0;
         _delay_ms(20);
-    }
-    if(speed < 70) {
-    speed = 70;
     }
     OCR0B = speed;
     OCR0A = 0;
