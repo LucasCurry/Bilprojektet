@@ -1,0 +1,80 @@
+/*
+ * Test_P3.c
+ *
+ * Created: 2024-01-11 10:56:21
+ * Author : gnorf
+ */ 
+#define F_CPU 16000000UL       /*16MHz*/
+#define min 70
+#define max 255
+#include <avr/io.h>
+#include <util/delay.h>
+#include <stdint.h>
+#include <avr/interrupt.h>
+
+/*Hastighet för motor med lägre gräns = 70.
+Vid "kallstart" fungerar ej låga hastigheter
+(<~100), då kan max-värde (255) köras i
+20 ms innan den låga hastigheten sätts*/
+
+void init() {
+    /*PWM-inställning med compare A & B
+    * Fast PWM och ingen prescaler*/
+    TCCR0A = 0b10100011;
+    TCCR0B = 0b00000001;
+    /*Sätter följande outputs:
+    * D5(PD5) = backpin
+    * D6(PD6) = motorpin
+    * D7(PD7) = Enable_A*/
+    DDRD = 0b11100000;
+}
+
+/*Framåt med hastighetsvärde 70(min) - 255(max)*/
+void fwd(uint16_t speed) {
+    PORTD = 0b10000000;
+    if(speed < 100) {
+        OCR0A = 120;
+        OCR0B = 0;
+        _delay_ms(20);
+    }
+    if(speed < min) {
+        speed = min;
+    }
+    if(speed > max) {
+        speed = max;
+    }
+    OCR0A = speed;
+    OCR0B = 0;
+}
+
+/*Bakåt med hastighetsvärde 70(min) - 255(max)*/
+void back(uint16_t speed) {
+    PORTD = 0b10000000;
+    if(speed < 100) {
+        OCR0B = 120;
+        OCR0A = 0;
+        _delay_ms(20);
+    }
+    if(speed < min) {
+        speed = min;
+    }
+    if(speed > max) {
+        speed = max;
+    }
+    OCR0B = speed;
+    OCR0A = 0;
+}
+
+/*Broms genom låsning av hjulen*/
+void brake() {
+    PORTD = 0b10000000;
+    OCR0A = 0;
+    OCR0B = 0;
+}
+
+int main(void) {
+    init();
+    while(1) {
+        fwd(20);
+    }
+}
