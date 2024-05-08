@@ -149,13 +149,11 @@ void setup() {
 
 void loop() {
   /*Hämtar värdena från sensorerna och lägger i en array */
-  pinMode(13, OUTPUT);
   distances[2] = sensor1.getDist();
   distances[1] = sensor2.getDist();
   distances[0] = sensor3.getDist();
   // Print distance to Serial
   Serial.print(distances[0]);
-  digitalWrite(13, HIGH);
   Serial.print(", ");
   Serial.print(distances[1]);
   Serial.print(", ");
